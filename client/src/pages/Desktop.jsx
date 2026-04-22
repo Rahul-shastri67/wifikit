@@ -20,7 +20,7 @@ export default function Desktop() {
   const [stats, setStats] = useState({ fps: 0, resolution: '' })
   const statsTimer = useRef(null)
 
-const serverBase = `https://192.168.31.233:3000`
+const serverBase = ``
 
   async function createSession() {
     setStatus('creating')

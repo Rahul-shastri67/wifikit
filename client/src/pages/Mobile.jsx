@@ -20,8 +20,8 @@ export default function Mobile() {
   const [streaming, setStreaming] = useState(false)
   const [viewerReady, setViewerReady] = useState(false)
   const [error, setError] = useState('')
-
-  const serverBase = `https://192.168.31.233:3000`
+  
+const serverBase = `https://192.168.31.233:3000`
 
   async function startCamera(facingMode) {
     if (streamRef.current) {
