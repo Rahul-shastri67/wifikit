@@ -9,11 +9,10 @@ const Session = require('./models/Session');
 const app = express();
 const server = http.createServer(app);
 
-// Allowed Origins
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://YOUR_PROJECT.vercel.app', // <-- Isko baad me apne Vercel URL se replace karna
-];
+  process.env.CLIENT_URL,
+].filter(Boolean);
 
 // Express CORS
 app.use(cors({
@@ -54,13 +53,20 @@ const io = new Server(server, {
   },
 });
 
-const MONGO_URI =
-  process.env.MONGO_URI || 'mongodb://localhost:27017/wifikit';
+const MONGO_URI = process.env.MONGO_URI;
+
+if (!MONGO_URI) {
+  console.error("❌ MONGO_URI environment variable not found.");
+  process.exit(1);
+}
 
 mongoose
   .connect(MONGO_URI)
-  .then(() => console.log('✅ MongoDB Connected'))
-  .catch((err) => console.error('❌ MongoDB Error:', err.message));
+  .then(() => console.log("✅ MongoDB Atlas Connected"))
+  .catch((err) => {
+    console.error("❌ MongoDB Connection Error:", err.message);
+    process.exit(1);
+  });
 
 function getLocalIP() {
   const nets = os.networkInterfaces();
