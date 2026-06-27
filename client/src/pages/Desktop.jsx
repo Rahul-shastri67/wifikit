@@ -20,7 +20,8 @@ export default function Desktop() {
   const [stats, setStats] = useState({ fps: 0, resolution: '' })
   const statsTimer = useRef(null)
 
-const serverBase = ``
+const serverBase =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   async function createSession() {
     setStatus('creating')
@@ -29,7 +30,7 @@ const serverBase = ``
       const data = await res.json()
       setSession(data.sessionId)
 
-      const url = `https://192.168.31.233:3000/mobile?room=${data.sessionId}`
+      const url = `${window.location.origin}/mobile?room=${data.sessionId}`;
       setMobileUrl(url)
       setStatus('waiting')
     } catch {

@@ -21,7 +21,8 @@ export default function Mobile() {
   const [viewerReady, setViewerReady] = useState(false)
   const [error, setError] = useState('')
   
-const serverBase = `https://192.168.31.233:3000`
+const serverBase =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   async function startCamera(facingMode) {
     if (streamRef.current) {

@@ -1,14 +1,11 @@
-import { io } from 'socket.io-client'
+import { io } from "socket.io-client";
 
-const isPhone = window.location.hostname !== 'localhost'
-const serverUrl = isPhone 
-  ? 'https://192.168.31.233:3000' 
-  : 'https://localhost:3000'
+const SERVER_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-const socket = io(serverUrl, {
+const socket = io(SERVER_URL, {
   autoConnect: false,
-  transports: ['websocket'],
-  secure: true
-})
+  transports: ["websocket"],
+});
 
-export default socket
+export default socket;
